@@ -16,8 +16,8 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email, password=None, full_name=None):
-        admin = self.create_user(email, password=password, first_name=None)
+    def create_superuser(self, email, password=None, first_name=None):
+        admin = self.create_user(email, password=password, first_name=first_name)
         admin.is_admin = True
         admin.save()
         return admin
@@ -32,7 +32,7 @@ class User(AbstractBaseUser):
                                                     # TODO: make 'favorites' field (ManyToMany for Post)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['first_name']
 
     def has_perm(self, perm, obj=None):
         return True

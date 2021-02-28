@@ -1,0 +1,5 @@
+.idea/
+static/
+__pycache__/
+venv/
+media/

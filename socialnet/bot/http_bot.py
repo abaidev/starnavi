@@ -1,7 +1,7 @@
 import requests
 import random
 from socialnet.bot.requester import (signup, token_auth,
-                                   create_post, like_post,
+                                   create_posts, like_post,
                                    dislike_post)
 
 bot_conf = {
@@ -9,14 +9,17 @@ bot_conf = {
     "max_posts_per_user": 0,
     "max_likes_per_user": 0,
 }
-counter = random.randint(14,255) + random.randint(20, 4528) + random.randint(30, 4587) * 3
+
 with open('rules.txt', 'r') as file:
     for line in file:
         line_vals = line.strip().split(" = ")
         bot_conf[line_vals[0]] = line_vals[1]
 
-request_for_users = requests.get(f"https://random-data-api.com/api/users/random_user?size={bot_conf['number_of_users']}")
+request_for_users = requests.get(f"https://random-data-api.com/api/users/random_user/?size={bot_conf['number_of_users']}")
 users_list = request_for_users.json()
+
+request_for_data = requests.get(f"https://random-data-api.com/api/hipster/random_hipster_stuff/?size={bot_conf['max_posts_per_user']}")
+data_list = request_for_data.json()
 
 for user in users_list:
     email = user.get("email")
@@ -25,17 +28,21 @@ for user in users_list:
     last_name = user.get("last_name")
     max_posts = int(bot_conf["max_posts_per_user"])
 
-    print(user)
-
     signup(email, password, first_name, last_name)
     token = token_auth(email, password).get("token")
     user["token"] = token
-    create_post(token, counter, max_posts)
+    create_posts(token, data_list, max_posts)
 
-posts = requests.get("http://127.0.0.1:8000/api/posts/").json()
+# TODO: needs to be optimized
+for user in users_list:
+    for num in range(int(bot_conf["max_likes_per_user"])):
+        posts = requests.get("http://127.0.0.1:8000/api/posts/").json()
+        rand_post_like = random.choice(posts)
+        like_post(user["token"], rand_post_like)
+        rand_post_dis = random.choice(posts)
+        dislike_post(user["token"], rand_post_dis)
 
-for post in posts:
-    for user in users_list:
-        like_post(user["token"], post)
-        dislike_post(user["token"], post)
+
+
+
 

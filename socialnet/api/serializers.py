@@ -6,12 +6,7 @@ from socialnet.models import Post
 
 User = get_user_model()
 
-class UserListSerializer(serializers.ModelSerializer):
-    class Meta:
-        exclude = ['password']
-        model = User
-
-
+# USER MODEL SERIALIZERS
 class UserSignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True,
                                     style={'input_type': 'password', 'placeholder': 'The Password please'})
@@ -42,16 +37,9 @@ class UserSignupSerializer(serializers.ModelSerializer):
 
 
 # Post model SERIALIZERS
-# class PostListSerializer(serializers.ModelSerializer):
-#     user = UserListSerializer(read_only=True)
-#     class Meta:
-#         model = Post
-#         fields = '__all__'
-#         depth = 1
-
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ["user", "title", "slug", "content", "likes"]
-        read_only_fields = ["user", "slug"]
+        fields = ["id", "user", "title", "slug", "content", "likes"]
+        read_only_fields = ["id", "user", "slug"]
         extra_kwargs = {"slug": {"required": False}}

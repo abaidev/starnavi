@@ -1,5 +1,5 @@
 .idea/
-static/
+/static/
 __pycache__/
 venv/
 media/

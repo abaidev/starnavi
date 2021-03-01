@@ -1,12 +1,12 @@
 from django.urls import path, include
-from .views import index
+from . import views
 
 app_name = 'socialnet'
 
 urlpatterns = [
-    path('', index, name='home'),
-    # path('signup/', SignupView.as_view(), name='signup'),
-    # path('login/', LoginView.as_view(), name='login'),
-    # path('logout/', LogoutView.as_view(), name='login'),
+    path('', views.index, name='home'),
+    path('signup/', views.signup, name='signup'),
+    path('login/', views.loginView, name='login'),
+    path('logout/', views.logoutUser, name='logout'),
     # path('account/', UserView.as_view(), name='login'),
 ]

@@ -39,8 +39,10 @@ class UserSignupSerializer(serializers.ModelSerializer):
 # Post model SERIALIZERS
 class PostSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(lookup_field='pk', view_name="api:post-rud")
+    user = UserSignupSerializer(read_only=True)
     class Meta:
         model = Post
-        fields = ["id", "user", "title", "slug", "content", "likes", "url"]
+        # fields = ["id", "user", "title", "slug", "content", "likes", "url"]
+        fields = '__all__'
         read_only_fields = ["id", "user", "slug"]
-        extra_kwargs = {"slug": {"required": False}}
+        extra_kwargs = {"slug": {"required": False}, "image_cover": {"required": False}}

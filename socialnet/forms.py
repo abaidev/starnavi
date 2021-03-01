@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserCreationForm
 
 
 User = get_user_model()
@@ -59,3 +59,9 @@ class UserAdminChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
+
+class UserCreateForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'email', 'password1', 'password2']

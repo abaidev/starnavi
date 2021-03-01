@@ -3,7 +3,8 @@
 This project is a demonstration of acquired skills. 
 Main backend configurations are set <br/>
 API implemented with Django REST Framework. <br/>
-Data for users and posts is fetched from random-data-api
+Data for users and posts is fetched from random-data-api. <br/>
+Automation bot is made by using http method
 
 ## Enviroment 
 
@@ -20,7 +21,7 @@ to activate enviroment use:<br/>
 
 create  `.env` file in main directory and fill the followings:
 
-	SECRET_KEY = YOUR_SECRET_KEY
+	STARNAVI_SECRET_KEY = YOUR_STARNAVI_SECRET_KEY
 	DB_STARNAVI_NAME =  YOUR_DB_STARNAVI_NAME
 	DB_USER =  YOUR_DB_USER
 	DB_PASSWORD =  YOUR_DB_PASSWORD
@@ -46,6 +47,9 @@ Open [http://127.0.0.1:8000](http://127.0.0.1:8000) to view it in the browser.
 ### Hunter (email verifier)
 PyHunter is used as a Python wrapper for the Hunter.io v2 API
 
+## Automation BOT
+Application `socialnet` contains directory  `bot` which has <b>http_bot.py</b> file.
+Before you need to run the server, then run the `http_bot.py` file by using Ctrl+F5
 
 ## Learn More
 

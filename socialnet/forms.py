@@ -36,10 +36,10 @@ class UserAdminCreationForm(forms.ModelForm):
 
 class UserDetailChangeForm(forms.ModelForm):
     first_name = forms.CharField(label='Name', required=False, widget=forms.TextInput(attrs={"class": 'form-control'}))
-
+    last_name = forms.CharField(label='Last Name', required=False, widget=forms.TextInput(attrs={"class": 'form-control'}))
     class Meta:
         model = User
-        fields = ['first_name']
+        fields = ['first_name', 'last_name']
 
 
 

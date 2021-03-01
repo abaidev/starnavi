@@ -6,7 +6,7 @@ app_name = 'socialnet'
 urlpatterns = [
     path('', views.index, name='home'),
     path('signup/', views.signup, name='signup'),
-    path('login/', views.loginView, name='login'),
-    path('logout/', views.logoutUser, name='logout'),
-    # path('account/', UserView.as_view(), name='login'),
+    path('login/', views.UserLoginView.as_view(), name='login'),
+    path('logout/', views.UserLogoutView.as_view(), name='logout'),
+    path('account/', views.UserProfileView.as_view(), name='account'),
 ]

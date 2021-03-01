@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container p-5 mt-5">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="row">
+                    <div class="col-lg-3">{{ field.label }}</div>
+                    <div class="col-lg-3">
+                        {% if request.user.is_authenticated and field.label == 'Photo' %}
+                            <img src="{{ field.value.url }}" alt="">
+                            <input type="file" name="photo" accept="image/*" id="id_photo">
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-3" style="color: red">{{ field.errors }}</div>
+                </div>
+            {% endfor %}
+
+            {% if request.user.is_authenticated %}
+                <input type="submit" value="Update" name="update" class="btn btn-primary">
+                <a href="{% url 'socialnet:account' %}" data-method="delete" class="btn btn-danger">Delete account</a></p>
+            {% else %}
+                <input type="submit" value="register" name="submit" class="btn btn-sm">
+            {% endif %}
+        </form>
+
+    </div>
+<style>
+    a, a:hover {
+        color: black;
+    }
+</style>
+{% endblock %}

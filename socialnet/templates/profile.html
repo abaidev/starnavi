@@ -20,16 +20,30 @@
 
             {% if request.user.is_authenticated %}
                 <input type="submit" value="Update" name="update" class="btn btn-primary">
-                <a href="{% url 'socialnet:account' %}" data-method="delete" class="btn btn-danger">Delete account</a></p>
+                <button onclick="deleteAccount()" class="btn btn-danger" type="button">Delete account</button>
             {% else %}
-                <input type="submit" value="register" name="submit" class="btn btn-sm">
+                <input type="submit" value="register" name="submit" class="btn btn-secondary">
             {% endif %}
         </form>
 
     </div>
-<style>
-    a, a:hover {
-        color: black;
-    }
-</style>
+    <style>
+        a, a:hover {
+            color: black;
+        }
+    </style>
+
+    <script>
+        const csrftoken = Cookies.get('csrftoken');
+        const deleteAccount = ()=>{
+            fetch('/account/', {
+                method: 'DELETE',
+                headers: {
+                    "X-CSRFToken": csrftoken,
+                }
+            }).then(res => {
+                res.ok ? window.location = "/login/" : null;
+            })
+        }
+    </script>
 {% endblock %}

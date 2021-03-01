@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import (get_user_model, authenticate,
                                  login, logout)
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, UpdateView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.generic import UpdateView, DeleteView
 from django.views import View
 from .forms import UserCreateForm, UserDetailChangeForm
 
@@ -49,13 +50,12 @@ class UserLoginView(View):
             messages.warning(request, "Login credentials are incorrect")
         return redirect(request.META.get("HTTP_REFERER"))
 
-
-class UserProfileView(UpdateView, LoginRequiredMixin):
+@method_decorator(login_required(login_url="socialnet:login"), name='dispatch')
+class UserProfileView(UpdateView,  DeleteView):
     login_url = 'socialnet:login'
     template_name = 'profile.html'
     form_class = UserDetailChangeForm
     initial = {}
-    success_url = reverse_lazy('socialnet:account')
 
     def get_object(self, queryset=None):
         email = self.request.user.email
@@ -67,6 +67,12 @@ class UserProfileView(UpdateView, LoginRequiredMixin):
         user.first_name, user.last_name = form.data.get('first_name'), form.data.get('last_name')
         user.save()
         return super().form_valid(form)
+
+    def delete(self, request, *args, **kwargs):
+        user = User.objects.get(email=self.request.user.email)
+        user.delete()
+        messages.info(request, "Your Account has been deleted")
+        return redirect('socialnet:home')
 
 class UserLogoutView(LogoutView, LoginRequiredMixin):
     login_url = 'socialnet:login'

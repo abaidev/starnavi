@@ -42,7 +42,6 @@ class PostSerializer(serializers.ModelSerializer):
     user = UserSignupSerializer(read_only=True)
     class Meta:
         model = Post
-        # fields = ["id", "user", "title", "slug", "content", "likes", "url"]
         fields = '__all__'
         read_only_fields = ["id", "user", "slug"]
         extra_kwargs = {"slug": {"required": False}, "image_cover": {"required": False}}

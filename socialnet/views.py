@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView, DeleteView
 from django.views import View
-from .forms import UserCreateForm, UserDetailChangeForm
+from .forms import CreateUserForm, UserDetailChangeForm
 
 User = get_user_model()
 
@@ -20,9 +20,9 @@ def signup(request):
         messages.info(request, 'You are logged in already')
         return redirect('socialnet:home')
 
-    form = UserCreateForm()
+    form = CreateUserForm()
     if request.method == 'POST':
-        form = UserCreateForm(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('socialnet:home')

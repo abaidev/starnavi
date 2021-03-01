@@ -21,7 +21,7 @@ to activate enviroment use:<br/>
 create  `.env` file in main directory and fill the followings:
 
 	SECRET_KEY = YOUR_SECRET_KEY
-	DB_NAME =  YOUR_DB_NAME
+	DB_STARNAVI_NAME =  YOUR_DB_STARNAVI_NAME
 	DB_USER =  YOUR_DB_USER
 	DB_PASSWORD =  YOUR_DB_PASSWORD
 	DB_HOST =  YOUR_DB_HOST

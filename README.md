@@ -27,6 +27,8 @@ create  `.env` file in main directory and fill the followings:
 	DB_PASSWORD =  YOUR_DB_PASSWORD
 	DB_HOST =  YOUR_DB_HOST
 	DB_PORT =  YOUR_DB_PORT
+	CLEARBIT_SECRET_KEY = CLEARBIT_SECRET_KEY 
+	MY_HUNTER_API_KEY = MY_HUNTER_API_KEY 
 
 #### `Windows` users:
 

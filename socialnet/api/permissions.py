@@ -2,9 +2,10 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 class IsAuthorOrReadOnly(BasePermission):
     message = 'Only author can change'
-    # allowed_methods = ['PUT', 'PATCH', 'GET']
+    allowed_methods = ['PUT', 'PATCH', 'GET']
+
     def has_permission(self, request, view):
-        if request.method in SAFE_METHODS:
+        if request.method in self.allowed_methods:
             return True
         return False
 

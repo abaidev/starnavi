@@ -1,7 +1,8 @@
 import requests
 import json
+from socialnet.bot.rules import rules
 
-host_url = "http://127.0.0.1:8000/api"
+host_url = rules.get("api", "http://127.0.0.1:8000/api")
 
 def signup(email, password, first_name, last_name):
     data = {
@@ -28,7 +29,7 @@ def create_posts(token, data_list, max_posts=1):
         if count < max_posts:
             post = {"title": post["sentence"], "content": post["paragraph"]}
             post_json = json.dumps(post).encode("utf8")
-            resp = requests.post(f"{host_url}/posts/", data=post_json, headers=headers)
+            requests.post(f"{host_url}/posts/", data=post_json, headers=headers)
 
 def like_post(token, post):
     headers = {'Content-Type': 'application/json', 'Authorization': 'JWT {}'.format(token)}

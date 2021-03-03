@@ -51,7 +51,8 @@ PyHunter is used as a Python wrapper for the Hunter.io v2 API
 
 ## Automation BOT
 Application `socialnet` contains directory  `bot` which has <b>http_bot.py</b> file.
-Before you need to run the server, then run the `http_bot.py` file by using Ctrl+F5
+Before you need to run the server, then run the `http_bot.py` file from your IDE, terminal. 
+Or you can use `python manage.py bot run` command. This will do all execution automatically.
 
 ## Learn More
 
